@@ -307,6 +307,7 @@ export default function EventsPage() {
       let paymentHandled = false;
 
       const options = {
+
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 
         amount: order.amount,
