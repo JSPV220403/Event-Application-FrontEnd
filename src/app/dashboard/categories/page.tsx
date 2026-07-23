@@ -233,21 +233,8 @@ return (
                     {category.name}
                   </h2>
 
-                  {/* <p className="text-gray-500 text-sm">
-                    Event Category
-                  </p> */}
                 </div>
               </div>
-
-              {/* <div className="bg-gray-50 rounded-xl p-3 mb-4">
-                <p className="text-xs text-gray-400">
-                  Category ID
-                </p>
-
-                <p className="text-sm font-medium text-gray-700 break-all">
-                  {category.id}
-                </p>
-              </div> */}
 
               {(
                 user?.role === "ADMIN" ||

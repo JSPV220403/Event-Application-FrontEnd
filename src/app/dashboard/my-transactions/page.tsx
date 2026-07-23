@@ -35,7 +35,7 @@ export default function MyTransactionsPage() {
 
         const response =
           await fetch(
-            "http://localhost:8000/api/user/myTransactions",
+            `${process.env.NEXT_PUBLIC_BACKEND_PORT}/user/myTransactions`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

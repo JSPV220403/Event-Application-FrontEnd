@@ -191,41 +191,6 @@ const [existingImage, setExistingImage] = useState("");
       const token =
         localStorage.getItem("token");
 
-      // const payload = {
-      //   id: eventData.id,
-      //   name: eventData.name,
-      //   description:
-      //     eventData.description,
-      //   category_id: 
-      //     eventData.category_id
-      //   ,
-
-      //   schedules: schedules.map(
-      //     (schedule) => ({
-      //       ...(schedule.id && {
-      //         id: schedule.id,
-      //       }),
-
-      //       date: schedule.date,
-      //       time: schedule.time,
-
-      //       price: Number(
-      //         schedule.price
-      //       ),
-
-      //       venue_capacity: Number(
-      //         schedule.venue_capacity
-      //       ),
-
-      //       address:
-      //         schedule.address,
-
-      //       pincode:
-      //         schedule.pincode,
-      //     })
-      //   ),
-      // };
-
       const formData = new FormData();
 
 formData.append("id", eventData.id);
@@ -257,11 +222,6 @@ const result = await updateEvent(
   token || ""
 );
 
-      // const result =
-      //   await updateEvent(
-      //     payload,
-      //     token || ""
-      //   );
 
 if (result.status === 200) {
   toast.success(result.message);

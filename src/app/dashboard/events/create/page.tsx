@@ -26,11 +26,11 @@ export default function CreateEventPage() {
   const { user } = useAuth();
 
   useEffect(() => {
-    const token= localStorage.getItem("token");
-    if(!token){
+    const token = localStorage.getItem("token");
+    if (!token) {
       router.replace("/login")
     }
-    
+
   }, []);
   const [authorized, setAuthorized] =
     useState(false);
@@ -42,35 +42,35 @@ export default function CreateEventPage() {
       category_id: "",
     });
 
-  
+
   const [categories, setCategories] =
-  useState<Category[]>([]);
+    useState<Category[]>([]);
 
   const [eventImage, setEventImage] =
-  useState<File | null>(null);
+    useState<File | null>(null);
 
-const loadCategories = async () => {
-  try {
-    const token =
-      localStorage.getItem("token");
+  const loadCategories = async () => {
+    try {
+      const token =
+        localStorage.getItem("token");
 
-    const result =
-      await getCategories(
-        token || ""
+      const result =
+        await getCategories(
+          token || ""
+        );
+
+      setCategories(
+        result.data || []
       );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    setCategories(
-      result.data || []
-    );
-  } catch (error) {
-    console.error(error);
-  }
-};
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
-useEffect(() => {
-  loadCategories();
-}, []);
-  
   const [schedules, setSchedules] =
     useState<Schedule[]>([
       {
@@ -155,88 +155,66 @@ useEffect(() => {
     try {
       const token =
         localStorage.getItem("token");
-      console.log("Event Data: ",eventData)
+      console.log("Event Data: ", eventData)
       console.log(
-  "category_id before conversion",
-  eventData.category_id
-);
-      // const payload = {
-      //   ...eventData,
+        "category_id before conversion",
+        eventData.category_id
+      );
+ 
+      const formData =
+        new FormData();
 
-      //   category_id: (
-      //     eventData.category_id
-      //   ),
+      formData.append(
+        "name",
+        eventData.name
+      );
 
-      //   schedules: schedules.map(
-      //     (schedule) => ({
-      //       ...schedule,
-      //       price: Number(
-      //         schedule.price
-      //       ),
-      //       venue_capacity: Number(
-      //         schedule.venue_capacity
-      //       ),
-      //     })
-      //   ),
-      // };
-const formData =
-  new FormData();
+      formData.append(
+        "description",
+        eventData.description
+      );
 
-formData.append(
-  "name",
-  eventData.name
-);
+      formData.append(
+        "category_id",
+        eventData.category_id
+      );
 
-formData.append(
-  "description",
-  eventData.description
-);
+      if (eventImage) {
+        formData.append(
+          "image",
+          eventImage
+        );
+      }
 
-formData.append(
-  "category_id",
-  eventData.category_id
-);
+      formData.append(
+        "schedules",
+        JSON.stringify(
+          schedules.map(
+            (schedule) => ({
+              ...schedule,
+              price: Number(
+                schedule.price
+              ),
+              venue_capacity:
+                Number(
+                  schedule.venue_capacity
+                ),
+            })
+          )
+        )
+      );
 
-if (eventImage) {
-  formData.append(
-    "image",
-    eventImage
-  );
-}
-
-formData.append(
-  "schedules",
-  JSON.stringify(
-    schedules.map(
-      (schedule) => ({
-        ...schedule,
-        price: Number(
-          schedule.price
-        ),
-        venue_capacity:
-          Number(
-            schedule.venue_capacity
-          ),
-      })
-    )
-  )
-);
-      // const result =
-      //   await createEvent(
-      //     payload,
-      //     token || ""
-      //   );
       const result =
-  await createEvent(
-    formData,
-    token || ""
-  );
+        await createEvent(
+          formData,
+          token || ""
+        );
 
-if (result.status === 200) {
-  toast.success(result.message);
-} else {
-  toast.error(result.message);
-}
+      if (result.status === 200) {
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
       if (result.status === 200) {
         router.push(
           "/dashboard/events"
@@ -252,11 +230,11 @@ if (result.status === 200) {
   };
 
   if (!authorized) {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-purple-100">
-      <div className="text-center">
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-purple-100">
+        <div className="text-center">
 
-        <div className="
+          <div className="
         w-14
         h-14
         border-4
@@ -267,18 +245,19 @@ if (result.status === 200) {
         mx-auto
         " />
 
-        <p className="mt-4 text-gray-600">
-          Loading...
-        </p>
+          <p className="mt-4 text-gray-600">
+            Loading...
+          </p>
 
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-purple-100 py-10 px-4">
-      <div className="
+      <div
+        className="
 max-w-5xl
 mx-auto
 bg-white/80
@@ -288,40 +267,32 @@ shadow-2xl
 border
 border-white/50
 p-10
-">
-        
-
+"
+      >
         <div className="mb-10">
-  <h1 className="text-4xl font-bold text-gray-800">
-    Create Event
-  </h1>
+          <h1 className="text-4xl font-bold text-gray-800">Create Event</h1>
 
-  <p className="text-gray-500 mt-2">
-    Build amazing experiences for your audience.
-  </p>
-</div>
+          <p className="text-gray-500 mt-2">
+            Build amazing experiences for your audience.
+          </p>
+        </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-  <label className="block mb-2 font-medium">
-    Event Poster
-    <span className="text-red-500 ml-1">*</span>
-  </label>
+            <label className="block mb-2 font-medium">
+              Event Poster
+              <span className="text-red-500 ml-1">*</span>
+            </label>
 
-  <input
-    type="file"
-    accept="image/*"
-    onChange={(e) => {
-      if (e.target.files?.[0]) {
-        setEventImage(
-          e.target.files[0]
-        );
-      }
-    }}
-    className="
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  setEventImage(e.target.files[0]);
+                }
+              }}
+              className="
       w-full
       border
       border-gray-200
@@ -333,14 +304,14 @@ p-10
       focus:ring-indigo-500
       transition
     "
-    required
-  />
+              required
+            />
 
-  {eventImage && (
-    <img
-      src={URL.createObjectURL(eventImage)}
-      alt="preview"
-      className="
+            {eventImage && (
+              <img
+                src={URL.createObjectURL(eventImage)}
+                alt="preview"
+                className="
         mt-4
         w-full
         max-h-64
@@ -348,14 +319,13 @@ p-10
         rounded-xl
         border
       "
-    />
-  )}
-</div>
+              />
+            )}
+          </div>
           <div>
             <label className="block mb-2 font-medium">
               Event Name
-                                <span className="text-red-500 ml-1">*</span>
-
+              <span className="text-red-500 ml-1">*</span>
             </label>
 
             <input
@@ -387,20 +357,16 @@ transition
           <div>
             <label className="block mb-2 font-medium">
               Description
-                                <span className="text-red-500 ml-1">*</span>
-
+              <span className="text-red-500 ml-1">*</span>
             </label>
 
             <textarea
               rows={4}
-              value={
-                eventData.description
-              }
+              value={eventData.description}
               onChange={(e) =>
                 setEventData({
                   ...eventData,
-                  description:
-                    e.target.value,
+                  description: e.target.value,
                 })
               }
               className="
@@ -416,27 +382,24 @@ focus:ring-indigo-500
 focus:border-transparent
 transition
 "
-required
+              required
             />
           </div>
           <div>
-  <label className="block mb-2 font-medium">
-    Category
-                      <span className="text-red-500 ml-1">*</span>
+            <label className="block mb-2 font-medium">
+              Category
+              <span className="text-red-500 ml-1">*</span>
+            </label>
 
-  </label>
-
-  <select
-    value={eventData.category_id}
-    onChange={(e) =>
-      setEventData({
-        ...eventData,
-        category_id:
-          e.target.value,
-      })
-    }
-    
-    className="
+            <select
+              value={eventData.category_id}
+              onChange={(e) =>
+                setEventData({
+                  ...eventData,
+                  category_id: e.target.value,
+                })
+              }
+              className="
 w-full
 border
 border-gray-200
@@ -449,30 +412,22 @@ focus:ring-indigo-500
 focus:border-transparent
 transition
 "
-    required
-  >
-    <option value="">
-      Select Category
-    </option>
+              required
+            >
+              <option value="">Select Category</option>
 
-    {categories.map(
-      (category) => (
-        <option
-          key={category.id}
-          value={category.id}
-        >
-          {category.name}
-        </option>
-      )
-    )}
-  </select>
-</div>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-semibold">
               Schedules
-                                <span className="text-red-500 ml-1">*</span>
-
+              <span className="text-red-500 ml-1">*</span>
             </h2>
 
             <button
@@ -496,27 +451,21 @@ transition-all
             </button>
           </div>
 
-          {schedules.map(
-            (schedule, index) => (
-              <div
-                key={index}
-                className="border rounded-xl p-5 space-y-4 bg-gray-50"
-              >
-                <div className="flex justify-between">
-                 <h3 className="text-lg font-bold text-indigo-700">
-                    Schedule {index + 1}
-                  </h3>
+          {schedules.map((schedule, index) => (
+            <div
+              key={index}
+              className="border rounded-xl p-5 space-y-4 bg-gray-50"
+            >
+              <div className="flex justify-between">
+                <h3 className="text-lg font-bold text-indigo-700">
+                  Schedule {index + 1}
+                </h3>
 
-                  {schedules.length >
-                    1 && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        removeSchedule(
-                          index
-                        )
-                      }
-                      className="
+                {schedules.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeSchedule(index)}
+                    className="
 bg-red-500
 hover:bg-red-600
 text-white
@@ -525,141 +474,113 @@ py-2
 rounded-xl
 transition-all
 "
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-
-                <input
-                  type="date"
-                  value={schedule.date}
-                  
-                  onChange={(e) =>
-                    handleScheduleChange(
-                      index,
-                      "date",
-                      e.target.value
-                    )
-                  }
-                  className="
-w-full
-border
-border-gray-200
-bg-white
-p-4
-rounded-xl
-focus:outline-none
-focus:ring-2
-focus:ring-indigo-500
-focus:border-transparent
-transition
-"
-                  required
-                />
-
-                <input
-                  type="time"
-                  value={schedule.time}
-                  onChange={(e) =>
-                    handleScheduleChange(
-                      index,
-                      "time",
-                      e.target.value
-                    )
-                  }
-                 className="
-w-full
-border
-border-gray-200
-bg-white
-p-4
-rounded-xl
-focus:outline-none
-focus:ring-2
-focus:ring-indigo-500
-focus:border-transparent
-transition
-"
-                  required
-                />
-
-                <input
-                  type="number"
-                  placeholder="Price"
-                  value={schedule.price}
-                  onChange={(e) =>
-                    handleScheduleChange(
-                      index,
-                      "price",
-                      e.target.value
-                    )
-                  }
-                  className="
-w-full
-border
-border-gray-200
-bg-white
-p-4
-rounded-xl
-focus:outline-none
-focus:ring-2
-focus:ring-indigo-500
-focus:border-transparent
-transition
-"
-                  required
-                />
-
-                <input
-                  type="number"
-                  placeholder="Venue Capacity"
-                  value={
-                    schedule.venue_capacity
-                  }
-                  onChange={(e) =>
-                    handleScheduleChange(
-                      index,
-                      "venue_capacity",
-                      e.target.value
-                    )
-                  }
-                  className="w-full border p-3 rounded-lg"
-                  required
-                />
-
-                <input
-                  type="text"
-                  placeholder="Address"
-                  value={schedule.address}
-                  onChange={(e) =>
-                    handleScheduleChange(
-                      index,
-                      "address",
-                      e.target.value
-                    )
-                  }
-                  className="w-full border p-3 rounded-lg"
-                  required
-                />
-
-                <input
-                  type="text"
-                  placeholder="Pincode"
-                  value={schedule.pincode}
-                  onChange={(e) =>
-                    handleScheduleChange(
-                      index,
-                      "pincode",
-                      e.target.value
-                    )
-                  }
-                  className="w-full border p-3 rounded-lg"
-                  required
-                />
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
-            )
-          )}
+
+              <input
+                type="date"
+                value={schedule.date}
+                onChange={(e) =>
+                  handleScheduleChange(index, "date", e.target.value)
+                }
+                className="
+w-full
+border
+border-gray-200
+bg-white
+p-4
+rounded-xl
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-transparent
+transition
+"
+                required
+              />
+
+              <input
+                type="time"
+                value={schedule.time}
+                onChange={(e) =>
+                  handleScheduleChange(index, "time", e.target.value)
+                }
+                className="
+w-full
+border
+border-gray-200
+bg-white
+p-4
+rounded-xl
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-transparent
+transition
+"
+                required
+              />
+
+              <input
+                type="number"
+                placeholder="Price"
+                value={schedule.price}
+                onChange={(e) =>
+                  handleScheduleChange(index, "price", e.target.value)
+                }
+                className="
+w-full
+border
+border-gray-200
+bg-white
+p-4
+rounded-xl
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-transparent
+transition
+"
+                required
+              />
+
+              <input
+                type="number"
+                placeholder="Venue Capacity"
+                value={schedule.venue_capacity}
+                onChange={(e) =>
+                  handleScheduleChange(index, "venue_capacity", e.target.value)
+                }
+                className="w-full border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="text"
+                placeholder="Address"
+                value={schedule.address}
+                onChange={(e) =>
+                  handleScheduleChange(index, "address", e.target.value)
+                }
+                className="w-full border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="text"
+                placeholder="Pincode"
+                value={schedule.pincode}
+                onChange={(e) =>
+                  handleScheduleChange(index, "pincode", e.target.value)
+                }
+                className="w-full border p-3 rounded-lg"
+                required
+              />
+            </div>
+          ))}
 
           <button
             type="submit"

@@ -1,4 +1,6 @@
-const API = "http://localhost:8000/api";
+// const API = "http://localhost:8000/api";
+const API = process.env.NEXT_PUBLIC_BACKEND_PORT;
+
 
 export const getOrganizersAdminsList = 
 async (
