@@ -1,24 +1,5 @@
-const API_URL = "http://localhost:8000/api";
+const BACKEND_PORT = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
-// export const createEvent = 
-// async (
-//   data: any,
-//   token: string
-// ) => {
-//   const response = await fetch(
-//     `${API_URL}/event/createEvent`,
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify(data),
-//     }
-//   );
-
-//   return response.json();
-// };
 
 export const createEvent =
   async (
@@ -27,7 +8,7 @@ export const createEvent =
   ) => {
     const response =
       await fetch(
-        `${API_URL}/event/createEvent`,
+        `${BACKEND_PORT}/event/createEvent`,
         {
           method: "POST",
 
@@ -48,7 +29,7 @@ async (
   token: string
 ) => {
   const response = await fetch(
-    `${API_URL}/event/updateEvent`,
+    `${BACKEND_PORT}/event/updateEvent`,
     {
       method: "POST",
       headers: {
@@ -67,14 +48,13 @@ async (
   token: string
 ) => {
   const response = await fetch(
-    `${API_URL}/event/eventList?data=${data}`,
+    `${BACKEND_PORT}/event/eventList?data=${data}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      //body: JSON.stringify(data),
     }
   );
 
@@ -87,14 +67,13 @@ async (
   token: string
 ) => {
   const response = await fetch(
-    `${API_URL}/event/eventById?id=${id}`,
+    `${BACKEND_PORT}/event/eventById?id=${id}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-     // body: JSON.stringify({ id }),
     }
   );
 
@@ -107,7 +86,7 @@ async (
   token: string
 ) => {
   const response = await fetch(
-    `${API_URL}/event/cancelEvent`,
+    `${BACKEND_PORT}/event/cancelEvent`,
     {
       method: "POST",
       headers: {

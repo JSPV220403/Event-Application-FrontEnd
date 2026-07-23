@@ -351,15 +351,6 @@ onValueChange={setStatus}
 
 </SelectTrigger>
 
-{/* {/* <SelectContent
-className="
-rounded-2xl
-border-cyan-500/40
-bg-slate-900
-backdrop-blur-xl
-text-white
-"
-> */}
 <SelectContent
 position="popper"
 side="bottom"

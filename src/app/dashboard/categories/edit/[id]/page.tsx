@@ -55,8 +55,6 @@ export default function EditCategoryPage() {
     params.id
   );
 
-  console.log("Sending ID:", categoryId);
-
   const token =
     localStorage.getItem("token");
 
@@ -65,8 +63,6 @@ export default function EditCategoryPage() {
       categoryId,
       token || ""
     );
-
-  console.log(result);
 
         if (
           result.status !== 200

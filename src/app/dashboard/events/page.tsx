@@ -34,17 +34,10 @@ export default function EventsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("approved");
-  const [showProfile, setShowProfile] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   // Payment ticket id
   const [tickerId, setTicketId] = useState<string>("");
-
-  const [showTransactions, setShowTransactions] = useState(false);
-
-  const [transactions, setTransactions] = useState<any[]>([]);
-
-  const [loadingTransactions, setLoadingTransactions] = useState(false);
 
   const [showBookingModal, setShowBookingModal] = useState(false);
 
@@ -137,35 +130,6 @@ export default function EventsPage() {
       console.error(error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const loadTransactions = async () => {
-    try {
-      setLoadingTransactions(true);
-
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        "http://localhost:8000/api/user/myTransactions",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      const data = await response.json();
-
-      if (data.status === 200) {
-        setTransactions(data.data || []);
-        setShowTransactions(true);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Unable to load transactions");
-    } finally {
-      setLoadingTransactions(false);
     }
   };
 
@@ -454,10 +418,6 @@ export default function EventsPage() {
     filter === "unapproved";
 
   const canCreate =
-    (user?.role === "ADMIN" || user?.role === "ORGANIZER") &&
-    user?.status !== "PENDING";
-
-  const canManageEvent = (event: any) =>
     (user?.role === "ADMIN" || user?.role === "ORGANIZER") &&
     user?.status !== "PENDING";
 

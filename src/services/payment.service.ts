@@ -1,12 +1,12 @@
 import axios from "axios";
-
+const BACKEND_PORT= process.env.NEXT_PUBLIC_BACKEND_PORT;
 export const createOrder = async (
   id: string,
   seats: number,
   token: string
 ) => {
   const response = await axios.post(
-    "http://localhost:8000/api/payment/createOrder",
+    `${BACKEND_PORT}/payment/createOrder`,
     {
       id,
       seats,
@@ -26,7 +26,7 @@ export const verifyPayment = async (
   token: string
 ) => {
   const response = await axios.post(
-    "http://localhost:8000/api/payment/verifyPayment",
+    `${BACKEND_PORT}/payment/verifyPayment`,
     payload,
     {
       headers: {

@@ -140,7 +140,6 @@ if (result.status === 200) {
     Manage approvals and monitor platform users
   </p>
 </div>
-        {/* <div className="bg-white p-5 rounded-xl shadow mb-6 flex gap-4"> */}
         <div className="
 bg-white/80
 backdrop-blur-sm
@@ -230,7 +229,6 @@ text-center
               (item) => (
                 <div
                   key={item.id}
-                  // className="bg-white p-5 rounded-xl shadow"
                   className="
 bg-white
 border
@@ -252,7 +250,6 @@ hover:-translate-y-1
                     {item.email}
                   </p>
 
-                  {/* <div className="mt-4 space-y-1 text-sm"> */}
                   <div className="mt-4 space-y-2 text-sm text-slate-600">
                     <p>
                       Role:{" "}

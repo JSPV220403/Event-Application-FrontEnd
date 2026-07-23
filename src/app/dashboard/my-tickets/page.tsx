@@ -222,13 +222,7 @@ return (
               <div className="p-6">
 
                 <div className="flex justify-between items-start mb-4">
-                  {/* <h2 className="text-2xl font-bold text-slate-800">
-                    {ticket.schedule?.event?.name}
-                  </h2>
-
-                  <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
-                    Booked
-                  </span> */}
+                
 
                   <div className="flex justify-between items-start mb-4">
   <h2 className="text-2xl font-bold text-slate-800">
@@ -236,25 +230,7 @@ return (
   </h2>
 
   <div className="flex items-center gap-3">
-    {/* <button
-      onClick={() =>
-        handleDownloadTicket(
-          ticket.id
-        )
-      }
-      className="
-        p-2
-        rounded-full
-        bg-indigo-100
-        text-indigo-600
-        hover:bg-indigo-600
-        hover:text-white
-        transition
-      "
-      title="Download Ticket"
-    >
-      <FaDownload />
-    </button> */}
+
 
     <span
       className="
@@ -322,21 +298,6 @@ return (
                   </div>
 
                 </div>
-
-                {/* {ticket.isCancelable && (
-                  <button
-                    onClick={() =>
-                      handleCancelTicket(
-                        ticket.id
-                      )
-                    }
-                    className="mt-6 w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold transition-all duration-300"
-                  >
-                    Cancel Ticket
-                  </button>
-
-                  
-                )} */}
 
                 {ticket.isCancelable && (
   <div className="mt-6 flex gap-3">

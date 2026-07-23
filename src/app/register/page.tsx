@@ -94,7 +94,7 @@ if (!isPasswordValid) {
 
   try {
     const response = await fetch(
-      "http://localhost:8000/api/auth/register",
+      `${process.env.NEXT_PUBLIC_BACKEND_PORT}/auth/register`,
       {
         method: "POST",
         headers: {
@@ -281,54 +281,7 @@ if (data.status === 200) {
   </button>
 
 </div>
-           {/* <div className="mt-3 space-y-1 text-sm">
-
-  <p className={
-    passwordChecks.minLength
-      ? "text-green-600"
-      : "text-red-600"
-  }>
-    {passwordChecks.minLength ? "✅" : "❌"}
-    {" "}Minimum 8 characters
-  </p>
-
-  <p className={
-    passwordChecks.lowercase
-      ? "text-green-600"
-      : "text-red-600"
-  }>
-    {passwordChecks.lowercase ? "✅" : "❌"}
-    {" "}One lowercase letter
-  </p>
-
-  <p className={
-    passwordChecks.uppercase
-      ? "text-green-600"
-      : "text-red-600"
-  }>
-    {passwordChecks.uppercase ? "✅" : "❌"}
-    {" "}One uppercase letter
-  </p>
-
-  <p className={
-    passwordChecks.number
-      ? "text-green-600"
-      : "text-red-600"
-  }>
-    {passwordChecks.number ? "✅" : "❌"}
-    {" "}One number
-  </p>
-
-  <p className={
-    passwordChecks.symbol
-      ? "text-green-600"
-      : "text-red-600"
-  }>
-    {passwordChecks.symbol ? "✅" : "❌"}
-    {" "}One special character
-  </p>
-
-</div> */}
+ 
 {
   showPasswordRequirements && (
     <div className="mt-3 space-y-1 text-sm">
