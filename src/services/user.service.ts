@@ -1,4 +1,4 @@
-const API = process.env.NEXT_PUBLIC_BACKEND_PORT;;
+const BACKEND_PORT = process.env.NEXT_PUBLIC_BACKEND_PORT;;
 
 export const bookTicket = 
   async (
@@ -7,7 +7,7 @@ export const bookTicket =
     token: string
   ) => {
     const response = await fetch(
-      `${API}/user/bookTicket`,
+      `${BACKEND_PORT}/user/bookTicket`,
       {
         method: "POST",
         headers: {
@@ -28,7 +28,7 @@ export const getBookHistory =
   async (token: string) => {
     const response =
       await fetch(
-        `${API}/user/bookHistory`,
+        `${BACKEND_PORT}/user/bookHistory`,
         {
           method: "GET",
           headers: {
@@ -48,7 +48,7 @@ export const cancelTicket =
   ) => {
     const response =
       await fetch(
-        `${API}/user/cancelTicket`,
+        `${BACKEND_PORT}/user/cancelTicket`,
         {
           method: "PATCH",
           headers: {

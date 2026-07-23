@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_BACKEND_PORT;
+const BACKEND_PORT = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
 export const createCategory = 
 async (
@@ -6,7 +6,7 @@ async (
   token: string
 ) => {
   const response = await fetch(
-    `${API_URL}/category/createCategory`,
+    `${BACKEND_PORT}/category/createCategory`,
     {
       method: "POST",
       headers: {
@@ -23,7 +23,7 @@ async (
 export const getCategories =
   async (token: string) => {
     const response = await fetch(
-      `${API_URL}/category/listCateogry`,
+      `${BACKEND_PORT}/category/listCateogry`,
       {
         method: "GET",
         headers: {
@@ -42,7 +42,7 @@ export const getCategoryById =
   ) => {
     const response =
       await fetch(
-        `${API_URL}/category/getCategoryById?id=${id}`,
+        `${BACKEND_PORT}/category/getCategoryById?id=${id}`,
         {
           method: "GET",
           headers: {
@@ -50,9 +50,6 @@ export const getCategoryById =
               "application/json",
             Authorization: `Bearer ${token}`,
           },
-          // body: JSON.stringify({
-          //   id,
-          // }),
         }
       );
 
@@ -67,7 +64,7 @@ export const updateCategory =
     console.log(data)
     const response =
       await fetch(
-        `${API_URL}/category/updateCategory`,
+        `${BACKEND_PORT}/category/updateCategory`,
         {
           method: "POST",
           headers: {
@@ -88,7 +85,7 @@ async (
   token: string
 ) => {
   const response = await fetch(
-    `${API_URL}/category/deleteCategory`,
+    `${BACKEND_PORT}/category/deleteCategory`,
     {
       method: "DELETE",
       headers: {

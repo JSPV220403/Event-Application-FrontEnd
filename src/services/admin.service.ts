@@ -1,5 +1,4 @@
-// const API = "http://localhost:8000/api";
-const API = process.env.NEXT_PUBLIC_BACKEND_PORT;
+const BACKEND_PORT = process.env.NEXT_PUBLIC_BACKEND_PORT;
 
 
 export const getOrganizersAdminsList = 
@@ -11,7 +10,7 @@ async (
     console.log("Token:", token);
 
     const response = await fetch(
-      `${API}/admin/organizersAdminsList?data=${data}`,
+      `${BACKEND_PORT}/admin/organizersAdminsList?data=${data}`,
       {
         method: "GET",
         headers: {
@@ -38,7 +37,7 @@ async (
   token: string
 ) => {
   const response = await fetch(
-    `${API}/admin/approval`,
+    `${BACKEND_PORT}/admin/approval`,
     {
       method: "PATCH",
 
@@ -63,7 +62,7 @@ async (
     token: string
   ) => {
     const response = await fetch(
-      `${API}/admin/organizerAdminApproval`,
+      `${BACKEND_PORT}/admin/organizerAdminApproval`,
       {
         method: "PATCH",
 
